@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-l_&vorg3n+_p8&b6an^n2@fxh8zc!!eoxz0-r0716=8-@)1ph@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # 3rd Party
     "crispy_forms",  # Instlled crispy forms
     "crispy_bootstrap5",  # installed crispy bootstrap
+    "whitenoise.runserver_nostatic",  # Install white noise to compile static files
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Setup white noise in middleware
 ]
 
 ROOT_URLCONF = "django_project.urls"
@@ -133,6 +135,10 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+# setup static root configuration
+STATIC_ROOT = BASE_DIR / "staticfiles"  # setup static root configuration
+# default file storage engine to use when collecting static files with collectstatic command
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Default primary key field type
